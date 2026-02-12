@@ -52,5 +52,39 @@ If successful, you should be able to access the Neo4j backend at http://localhos
 ![Neo4j_HomeScreen](images/Neo4j_Home.png)
 
 ### 2.2. Manual Import
-If building from scratch, you may use the Cypher scripts from the /scripts folder to load the raw CSVs from the original repository manually.
+If building from scratch, you may use the Cypher scripts from the `/scripts` folder to load the raw CSVs from the original repository manually.
 
+## Part 3: Frontend - Streamlit App Deployment
+The `northwind_neo4j_app.py` Streamlit app serves as the Web user interface of this demo solution.
+
+### 3.1. Authentication
+The Python code retrieves your local credentials to authneticate with Azure AI Foundry and access AI model's deployment:
+
+``` Python
+from azure.identity import DefaultAzureCredential
+
+credential = DefaultAzureCredential()
+```
+
+### 3.2. Orchestration
+The app handles the _natural-language-to-Cypher_ translation using the `GraphCypherQAChain`.
+
+``` Python
+chain = GraphCypherQAChain.from_llm(
+    llm=llm,
+    graph=graph,
+    verbose=True,
+    return_intermediate_steps=True,
+    cypher_prompt=cypher_prompt,
+    qa_prompt=qa_prompt,
+    allow_dangerous_requests=True,
+    top_k=50
+)
+```
+
+### 3.3. Launching the UI
+To start the app, using the following Streamlit command.
+
+``` PowerShell
+streamlit run app/northwind_neo4j_app.py
+```
