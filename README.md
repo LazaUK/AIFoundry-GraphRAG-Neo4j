@@ -95,13 +95,13 @@ If successful, you should be able to access the Streamlit frontend UI at http://
 ## Part 4: Graph RAG Sample
 To test the solution, follow these steps in the Streamlit UI.
 
-### 4.1. Establish Connection
+### 4.1. Establishing Connection
 Click the `Connect` button in the sidebar to initialise the links to _Neo4j_ and _Azure AI Foundry_.
 
 > [!NOTE]
 > It may take 1-2 minutes to establish the connection, because the app will "lazy"-load the required Python libraries in the first execution.
 
-### Querying the Graph
+### 4.2. Querying the Graph
 Once connected, enter a natural language query in the chat input. For example:
 
 ``` JSON
