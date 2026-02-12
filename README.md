@@ -1,4 +1,4 @@
-# Northwind: Graph RAG with **Neo4j**, **Azure AI Foundry** and **Langchain**
+# Northwind: Graph RAG with Azure AI Foundry and Neo4j
 
 This repo demonstrates how to deploy a **Neo4j** graph database pre-loaded with the _Northwind_ dataset and use it as a knowledge base for Graph RAG workflows.
 
