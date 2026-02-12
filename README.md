@@ -128,7 +128,6 @@ This indicates a strong presence of Exotic Liquids' products among various Londo
 It will also provide details of the Cypher script generated (with the logic used to traverse the `Supplier -> Product -> Order -> Customer` path):
 
 ``` Cypher
-cypher
 MATCH (s:Supplier)-[:SUPPLIES]->(p:Product)
 MATCH (p)<-[:ORDERS]-(:Order)<-[:PURCHASED]-(c:Customer)
 WHERE toLower(s.companyName) CONTAINS toLower("Exotic Liquids")
