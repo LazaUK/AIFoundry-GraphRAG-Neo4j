@@ -5,7 +5,7 @@ This repo demonstrates how to deploy a **Neo4j** graph database pre-loaded with 
 The solution includes a containerised **Neo4j** backend and a **Streamlit** frontend powered by **Azure AI Foundry** and **Langchain**.
 
 > [!NOTE]
-> This project utilises the _Northwind_ dataset, kindly shared by _Martin O'Hanlon_ and the _Neo4j_ team on this [repository](https://github.com/neo4j-graph-examples/northwind). All CSV data files used in the graph import are derived directly from this original work.
+> This demo utilises the _Northwind_ dataset, kindly shared by _Martin O'Hanlon_ and the _Neo4j_ team on this [repo](https://github.com/neo4j-graph-examples/northwind). All CSV data files used in the graph import are based on this original work.
 
 ## 📑 Table of Contents:
 - [Part 1: Environment & Authentication](#part-1-environment--authentication)
@@ -52,7 +52,7 @@ If successful, you should be able to access the Neo4j backend at http://localhos
 ![Neo4j_HomeScreen](images/Neo4j_Home.png)
 
 ### 2.2. Manual Import
-If building from scratch, you may use the Cypher scripts from the `/scripts` folder to load the raw CSVs from the original repository manually.
+Alternatively, you can build the database from scratch. If it's the case, you may check and re-use the Cypher scripts from the `/scripts` folder to load the raw CSVs from the original Neo4j repo manually.
 
 ## Part 3: Frontend - Streamlit App Deployment
 The `northwind_neo4j_app.py` Streamlit app serves as the Web user interface of this demo solution.
@@ -99,7 +99,7 @@ To test the solution, follow these steps in the Streamlit UI.
 Click the `Connect` button in the sidebar to initialise the links to _Neo4j_ and _Azure AI Foundry_.
 
 > [!NOTE]
-> It may take 1-2 minutes to establish the connection, because the app will "lazy"-load the required Python libraries in the first execution.
+> It may take 1-2 minutes to establish the connection, because the app will "lazy"-load the required Python libraries on the first execution.
 
 ### 4.2. Querying the Graph
 Once connected, enter a natural language query in the chat input. For example:
@@ -125,7 +125,7 @@ Key findings:
 This indicates a strong presence of Exotic Liquids' products among various London customers, with "Chai" being the most widely distributed product.
 ```
 
-It will also provide details of the Cypher script generated (with the logic used to traverse the `Supplier -> Product -> Order -> Customer` path):
+It will also provide details of the Cypher script generated (with the logic used to traverse the `Supplier -> Product <- Order <- Customer` paths):
 
 ``` Cypher
 MATCH (s:Supplier)-[:SUPPLIES]->(p:Product)
