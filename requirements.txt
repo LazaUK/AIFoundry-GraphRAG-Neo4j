@@ -1,0 +1,15 @@
+# Northwind Graph RAG Demo - Python Dependencies
+
+# Core framework
+streamlit>=1.40.0
+
+# LangChain (v1.0+ for Azure v1 API support)
+langchain-openai>=1.0.1
+langchain-neo4j>=0.2.0
+langchain-core>=0.3.0
+
+# Azure authentication
+azure-identity>=1.19.0
+
+# Data handling
+pandas>=2.0.0
