@@ -10,8 +10,8 @@ The solution includes a containerised **Neo4j** backend and a **Streamlit** fron
 ## 📑 Table of Contents:
 - [Part 1: Environment & Authentication](#part-1-environment--authentication)
 - [Part 2: Backend - Neo4j DB Deployment](#part-2-backend---neo4j-db-deployment)
-- [Part 3: Frontend - Streamlit App Deployment]()
-- [Part 4: Graph RAG Samples]()
+- [Part 3: Frontend - Streamlit App Deployment](#part-3-frontend---streamlit-app-deployment)
+- [Part 4: Graph RAG Sample]()
 
 ## Part 1: Environment & Authentication
 
@@ -88,3 +88,8 @@ To start the app, using the following Streamlit command.
 ``` PowerShell
 streamlit run app/northwind_neo4j_app.py
 ```
+
+If successful, you should be able to access the Streamlit frontend UI at http://localhost:8501.
+![Streamlit_HomeScreen](images/Streamlit_Home.png)
+
+## Part 4: Graph RAG Sample
