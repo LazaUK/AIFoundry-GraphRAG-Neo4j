@@ -11,7 +11,7 @@ The solution includes a containerised **Neo4j** backend and a **Streamlit** fron
 - [Part 1: Environment & Authentication](#part-1-environment--authentication)
 - [Part 2: Backend - Neo4j DB Deployment](#part-2-backend---neo4j-db-deployment)
 - [Part 3: Frontend - Streamlit App Deployment](#part-3-frontend---streamlit-app-deployment)
-- [Part 4: Graph RAG Sample]()
+- [Part 4: Graph RAG Sample](#part-4-graph-rag-sample)
 
 ## Part 1: Environment & Authentication
 
@@ -42,7 +42,7 @@ The app uses `DefaultAzureCredential()`, so no static API keys are required. Sim
 ## Part 2: Backend - Neo4j DB Deployment
 
 ### 2.1. Pre-built Docker Image
-This repo comes with a pre-built _Docker_ image, containing the full _Northwind_ dataset and hosted in the _GitHub Container Registry_ (GHCR). You can deploy it as a local container (or provision into a cloud, e.g. by uing **Azure Kubernetes Services**).
+This repo comes with a pre-built _Docker_ image, containing the full _Northwind_ dataset and hosted in the _GitHub Container Registry_ (GHCR). You can deploy it as a local container (or provision into a cloud, e.g. by using **Azure Kubernetes Services**).
 
 ``` PowerShell
 docker run -d --name neo4j-northwind -p 7474:7474 -p 7687:7687 ghcr.io/lazauk/neo4j-northwind:latest
@@ -83,7 +83,7 @@ chain = GraphCypherQAChain.from_llm(
 ```
 
 ### 3.3. Launching the UI
-To start the app, using the following Streamlit command.
+To start the app, use the following Streamlit command.
 
 ``` PowerShell
 streamlit run app/northwind_neo4j_app.py
@@ -96,19 +96,19 @@ If successful, you should be able to access the Streamlit frontend UI at http://
 To test the solution, follow these steps in the Streamlit UI.
 
 ### 4.1. Establish Connection
-Click the `Connect` button in the sidebar to initialise the links between _Neo4j_ and _Azure AI Foundry_.
+Click the `Connect` button in the sidebar to initialise the links to _Neo4j_ and _Azure AI Foundry_.
 
 > [!NOTE]
-> It may take 1-2 minutes to establish the connection, because the app will also "lazy"-load required Python libraries.
+> It may take 1-2 minutes to establish the connection, because the app will "lazy"-load the required Python libraries in the first execution.
 
-### Questions / Results
-Once connected, enter a natural language query in the chat input, e.g.
+### Querying the Graph
+Once connected, enter a natural language query in the chat input. For example:
 
 ``` JSON
 Which products are supplied by Exotic Liquids to our customers in London?
 ```
 
-The app should be able to conduct multi-hop search and share not only results like this..
+The app should be able to conduct a multi-hop search and provide a structured response.
 
 ``` JSON
 The products supplied by Exotic Liquids to customers in London are:
@@ -125,7 +125,7 @@ Key findings:
 This indicates a strong presence of Exotic Liquids' products among various London customers, with "Chai" being the most widely distributed product.
 ```
 
-.. but also provide details of the Cypher script generated, e.g.:
+It will also provide details of the Cypher script generated (with the logic used to traverse the `Supplier -> Product -> Order -> Customer` path):
 
 ``` Cypher
 cypher
