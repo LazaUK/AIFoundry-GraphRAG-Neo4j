@@ -18,7 +18,7 @@ The solution includes a containerised **Neo4j** backend and a **Streamlit** fron
 ### 1.1. Prerequisites
 The solution uses Microsoft **Entra ID** authentication via the `azure-identity` package. Please, ensure that you:
 
-- loged in using `az login` command to retrieve Entra ID tokens,
+- logged in using `az login` command to retrieve Entra ID tokens,
 - have relevant RBAC (role-based access control) role assigned to access Azure AI Foundry's deployment.
 
 ### 1.2. Python Dependencies
@@ -58,7 +58,7 @@ If building from scratch, you may use the Cypher scripts from the `/scripts` fol
 The `northwind_neo4j_app.py` Streamlit app serves as the Web user interface of this demo solution.
 
 ### 3.1. Authentication
-The Python code retrieves your local credentials to authneticate with Azure AI Foundry and access AI model's deployment:
+The Python code retrieves your local credentials to authenticate with Azure AI Foundry and access AI model's deployment:
 
 ``` Python
 from azure.identity import DefaultAzureCredential
@@ -93,3 +93,49 @@ If successful, you should be able to access the Streamlit frontend UI at http://
 ![Streamlit_HomeScreen](images/Streamlit_Home.png)
 
 ## Part 4: Graph RAG Sample
+To test the solution, follow these steps in the Streamlit UI.
+
+### 4.1. Establish Connection
+Click the `Connect` button in the sidebar to initialise the links between _Neo4j_ and _Azure AI Foundry_.
+
+> [!NOTE]
+> It may take 1-2 minutes to establish the connection, because the app will also "lazy"-load required Python libraries.
+
+### Questions / Results
+Once connected, enter a natural language query in the chat input, e.g.
+
+``` JSON
+Which products are supplied by Exotic Liquids to our customers in London?
+```
+
+The app should be able to conduct multi-hop search and share not only results like this..
+
+``` JSON
+The products supplied by Exotic Liquids to customers in London are:
+- Chang
+- Chai
+- Aniseed Syrup
+
+Key findings:
+- Exotic Liquids supplies three distinct products to London-based customers.
+- The product "Chang" is supplied to customers "Consolidated Holdings" and "Around the Horn."
+- The product "Chai" is supplied to three customers: "North/South," "Seven Seas Imports," and "Eastern Connection."
+- "Aniseed Syrup" is supplied to "B's Beverages."
+
+This indicates a strong presence of Exotic Liquids' products among various London customers, with "Chai" being the most widely distributed product.
+```
+
+.. but also provide details of the Cypher script generated, e.g.:
+
+``` Cypher
+cypher
+MATCH (s:Supplier)-[:SUPPLIES]->(p:Product)
+MATCH (p)<-[:ORDERS]-(:Order)<-[:PURCHASED]-(c:Customer)
+WHERE toLower(s.companyName) CONTAINS toLower("Exotic Liquids")
+  AND toLower(c.city) CONTAINS toLower("London")
+RETURN DISTINCT s.companyName AS Supplier, p.productName AS Product, c.companyName AS Customer, c.city AS CustomerCity
+LIMIT 50
+```
+
+.. and visualise retrieved content.
+![Streamlit_GraphRAG](images/Streamlit_GraphRAG.png)
