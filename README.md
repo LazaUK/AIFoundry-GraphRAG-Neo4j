@@ -31,10 +31,10 @@ pip install -r requirements.txt
 ### 1.3. Configuration
 The app uses `DefaultAzureCredential()`, so no static API keys are required. Simply configure these variables:
 
-| Variable                | Description                                       |
-| ----------------------- | ------------------------------------------------- |
-| AZURE_OPENAI_API_BASE   | Your Azure AI Foundry project endpoint            |
-| AZURE_OPENAI_API_DEPLOY | Your model deployment name (e.g., `gpt-4.1-mini`) |
+| Variable                | Description                                                                                                  |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------ |
+| AZURE_OPENAI_API_BASE   | Your Azure OpenAI endpoint, compatible with v1 API, i.e. https://<AOAI_Resource>.openai.azure.com/openai/v1/ |
+| AZURE_OPENAI_API_DEPLOY | Your model deployment name (e.g., `gpt-4.1-mini`)                                                            |
 
 > [!TIP]
 > Provided Neo4j backend is set with `neo4j` as a user account, and `northwind` as its password.
