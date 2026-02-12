@@ -9,7 +9,7 @@ The solution includes a containerised **Neo4j** backend and a **Streamlit** fron
 
 ## 📑 Table of Contents:
 - [Part 1: Environment & Authentication](#part-1-environment--authentication)
-- [Part 2: Backend - Neo4j DB Deployment]()
+- [Part 2: Backend - Neo4j DB Deployment](#part-2-backend---neo4j-db-deployment)
 - [Part 3: Frontend - Streamlit App Deployment]()
 - [Part 4: Graph RAG Samples]()
 
@@ -41,13 +41,16 @@ The app uses `DefaultAzureCredential()`, so no static API keys are required. Sim
 
 ## Part 2: Backend - Neo4j DB Deployment
 
-### Option A: Pre-built Docker Image
+### 2.1. Pre-built Docker Image
 This repo comes with a pre-built _Docker_ image, containing the full _Northwind_ dataset and hosted in the _GitHub Container Registry_ (GHCR). You can deploy it as a local container (or provision into a cloud, e.g. by uing **Azure Kubernetes Services**).
 
 ``` PowerShell
 docker run -d --name neo4j-northwind -p 7474:7474 -p 7687:7687 ghcr.io/lazauk/neo4j-northwind:latest
 ```
 
-### Option B: Manual Import
+If successful, you should be able to access the Neo4j backend at http://localhost:7474.
+![Neo4j_HomeScreen](images/Neo4j_Home.png)
+
+### 2.2. Manual Import
 If building from scratch, you may use the Cypher scripts from the /scripts folder to load the raw CSVs from the original repository manually.
 
